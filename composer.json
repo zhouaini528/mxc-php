@@ -1,0 +1,22 @@
+{
+    "name": "linwj/mxc",
+    "type": "library",
+    "description": "Mxc API Like the official document interface, Support for arbitrary extension.",
+    "license": "MIT",
+    "keywords": ["bitmex", "binance", "okex", "huobi","kucoin","kumex","mxc"],
+    "authors": [
+        {
+            "name": "linwenjun",
+            "email": "465382251@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lin\\Mxc\\": "./src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
