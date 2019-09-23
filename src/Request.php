@@ -75,13 +75,13 @@ class Request
             $params=$this->sort($params);
             $params=implode('&', $params);
             $params.='&api_secret='.$this->secret;
-            echo $params."\n";
+            
             $this->signature = md5($params);
         }
     }
     
     /**
-     * 根据huobi规则排序
+     * 根据规则排序
      * */
     protected function sort($param)
     {
@@ -101,8 +101,7 @@ class Request
      * */
     protected function headers(){
         $this->headers=[
-            //'Content-Type' => 'application/json',
-            //'Content-Type' => 'application/x-www-form-urlencoded',
+            'Content-Type' => 'application/json',
         ];
     }
     
@@ -140,19 +139,15 @@ class Request
                 'req_time'=>$this->nonce,
                 'sign'=>$this->signature,
             ];
-            //$this->options['body']=array_merge($params,$this->data);
-            //$this->options['body']=json_encode(array_merge($params,$this->data));
-            //$this->options['form_params']=array_merge($params,$this->data);
             
-            $url.='?'.http_build_query(array_merge($params,$this->data));
+            if($this->type=='GET') $url.='?'.http_build_query(array_merge($params,$this->data));
+            else $this->options['form_params']=array_merge($params,$this->data);
         }else{
             $url.='?'.http_build_query($this->data);
         }
-        print_r($this->options);
-        echo $url."\n";
-        //echo $url;die;
+
         $response = $client->request($this->type, $url, $this->options);
-        //die('ttt');
+        
         return $response->getBody()->getContents();
     }
     
@@ -164,9 +159,6 @@ class Request
         
         //可以记录日志
         try {
-            $a=$this->send();
-            echo 'ggggggggg';
-            var_dump($a);die('ttt');
             return json_decode($this->send(),true);
         }catch (RequestException $e){
             if(method_exists($e->getResponse(),'getBody')){

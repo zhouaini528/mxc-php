@@ -23,7 +23,7 @@ $Mxc->setOptions([
     'timeout'=>10,
     
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -31,7 +31,7 @@ $Mxc->setOptions([
      'no'    =>  ['.cn']
      ], */
     //Close the certificate
-    'verify'=>false,
+    //'verify'=>false,
 ]);
 
 try {
