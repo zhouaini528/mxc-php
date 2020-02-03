@@ -4,8 +4,6 @@ Mxc docs [https://github.com/mxcdevelop/APIDoc](https://github.com/mxcdevelop/AP
 
 All interface methods are initialized the same as those provided by okex. See details [src/api](https://github.com/zhouaini528/mxc-php/tree/master/src/Api)
 
-Many interfaces are not yet complete, and users can continue to extend them based on my design. Welcome to improve it with me
-
 [中文文档](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
 
 ### Other exchanges API
