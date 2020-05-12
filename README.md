@@ -8,7 +8,7 @@ All interface methods are initialized the same as those provided by okex. See de
 
 Most of the interface is now complete, and the user can continue to extend it based on my design, working with me to improve it.
 
-[English Document](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
+[中文文档](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
 
 ### Other exchanges API
 
@@ -24,7 +24,7 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Kucoin](https://github.com/zhouaini528/kucoin-php)
 
-[Mxc](https://github.com/zhouaini528/Mxc-php)
+[Mxc](https://github.com/zhouaini528/Mxc-php) Temporarily not connected to Exchanges SDK
 
 #### Installation
 ```
