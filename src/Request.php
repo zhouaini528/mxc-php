@@ -36,7 +36,7 @@ class Request
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->host=$data['host'] ?? 'https://www.mxc.com/';
+        $this->host=$data['host'] ?? 'https://www.mxc.co/';
         
         $this->options=$data['options'] ?? [];
     }

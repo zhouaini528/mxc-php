@@ -10,51 +10,81 @@ use Lin\Mxc\Request;
 class Orders extends Request
 {
     /**
-     * GET /open/api/v1/private/current/orders 获取当前委托信息
+     * POST /open/api/v2/order/place
      * */
-    public function getCurrent(array $data=[]){
-        $this->type='GET';
-        $this->path='/open/api/v1/private/current/orders';
+    public function postPlace(array $data=[]){
+        $this->type='POST';
+        $this->path='/open/api/v2/order/place';
         $this->data=$data;
         return $this->exec();
     }
     
     /**
-     * POST /open/api/v1/private/order 下单
+     *DELETE /open/api/v2/order/cancel
      * */
-    public function post(array $data=[]){
-        $this->type='GET';
-        $this->path='/open/api/v1/private/order';
-        $this->data=$data;
-        return $this->exec();
-    }
-    
-    /**
-     *  DELETE /open/api/v1/private/order 取消订单
-     * */
-    public function delete(array $data=[]){
+    public function deleteCancel(array $data=[]){
         $this->type='DELETE';
-        $this->path='/open/api/v1/private/order';
+        $this->path='/open/api/v2/order/cancel';
         $this->data=$data;
         return $this->exec();
     }
     
     /**
-     * GET /open/api/v1/private/orders 查询账号历史委托记录
+     *POST /open/api/v2/order/place_batch
      * */
-    public function getAll(array $data=[]){
-        $this->type='GET';
-        $this->path='/open/api/v1/private/orders';
+    public function postPlaceBatch(array $data=[]){
+        $this->type='POST';
+        $this->path='/open/api/v2/order/place_batch';
         $this->data=$data;
         return $this->exec();
     }
     
     /**
-     * GET /open/api/v1/private/order 查询订单状态
+     *GET /open/api/v2/order/open_orders
      * */
-    public function get(array $data=[]){
+    public function getOpenOrders(array $data=[]){
         $this->type='GET';
-        $this->path='/open/api/v1/private/order';
+        $this->path='/open/api/v2/order/open_orders';
+        $this->data=$data;
+        return $this->exec();
+    }
+    
+    /**
+     *GET /open/api/v2/order/list
+     * */
+    public function getList(array $data=[]){
+        $this->type='GET';
+        $this->path='/open/api/v2/order/list';
+        $this->data=$data;
+        return $this->exec();
+    }
+    
+    /**
+     *GET /open/api/v2/order/query
+     * */
+    public function getQuery(array $data=[]){
+        $this->type='GET';
+        $this->path='/open/api/v2/order/query';
+        $this->data=$data;
+        return $this->exec();
+    }
+    
+    /**
+     *GET /open/api/v2/order/deals
+     * */
+    public function getDeals(array $data=[]){
+        $this->type='GET';
+        $this->path='/open/api/v2/order/deals';
+        $this->data=$data;
+        return $this->exec();
+    }
+    
+    /**
+     *GET /open/api/v2/order/deal_detail
+     * */
+    public function getDealDetail(array $data=[]){
+        $this->type='GET';
+        $this->path='/open/api/v2/order/deal_detail';
         $this->data=$data;
         return $this->exec();
     }
