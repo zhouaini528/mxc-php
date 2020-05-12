@@ -33,9 +33,9 @@ composer require linwj/mxc-php
 
 Support for more request Settings
 ```php
-$okex=new OkexSpot();
+$mxc=new MxcSpot($key,$secret);
 //You can set special needs
-$okex->setOptions([
+$mxc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
