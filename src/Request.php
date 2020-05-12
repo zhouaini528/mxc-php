@@ -145,7 +145,9 @@ class Request
         }else{
             $url.='?'.http_build_query($this->data);
         }
-
+        echo $this->type;
+        echo $url;
+        print_r($this->options);
         $response = $client->request($this->type, $url, $this->options);
         
         return $response->getBody()->getContents();
