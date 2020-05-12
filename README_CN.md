@@ -53,7 +53,7 @@ $okex->setOptions([
 
 ### Mxc 现货交易 API
 
-行情数据 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/market.php)
+行情数据 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/market.php)
 
 ```php
 $mxc=new MxcSpot($key,$secret);
@@ -106,7 +106,7 @@ try {
 }
 ```
 
-下单、撤单、查询订单 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/order.php)
+下单、撤单、查询订单 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/order.php)
 
 ```php
 //Place an Order
@@ -152,7 +152,7 @@ try {
 }
 ```
 
-账户查询 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/accounts.php)
+账户查询 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/accounts.php)
 
 ```php
 try {
@@ -164,6 +164,6 @@ try {
 
 ```
 
-[更多用例请查看](https://github.com/zhouaini528/mxc-php/tree/master/tests/Mxc)
+[更多用例请查看](https://github.com/zhouaini528/mxc-php/tree/master/tests/spot)
 
-[更多API请查看](https://github.com/zhouaini528/mxc-php/tree/master/src/Api/Mxc)
+[更多API请查看](https://github.com/zhouaini528/mxc-php/tree/master/src/Api/Spot)

@@ -31,7 +31,7 @@ Most of the interface is now complete, and the user can continue to extend it ba
 composer require linwj/mxc-php
 ```
 
-Support for more request Settings [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/proxy.php#L21)
+Support for more request Settings
 ```php
 $okex=new OkexSpot();
 //You can set special needs
@@ -55,7 +55,7 @@ $okex->setOptions([
 
 ### Mxc Spot API
 
-Order Book [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/market.php)
+Order Book [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/market.php)
 
 ```php
 $mxc=new MxcSpot($key,$secret);
@@ -108,7 +108,7 @@ try {
 }
 ```
 
-Order related API [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/order.php)
+Order related API [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/order.php)
 
 ```php
 //Place an Order
@@ -154,7 +154,7 @@ try {
 }
 ```
 
-Accounts related API [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/accounts.php)
+Accounts related API [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/accounts.php)
 
 ```php
 try {
@@ -166,6 +166,6 @@ try {
 
 ```
 
-[More Test](https://github.com/zhouaini528/mxc-php/tree/master/tests/Mxc)
+[More Test](https://github.com/zhouaini528/mxc-php/tree/master/tests/spot)
 
-[More Api](https://github.com/zhouaini528/mxc-php/tree/master/src/Api/Mxc)
+[More Api](https://github.com/zhouaini528/mxc-php/tree/master/src/Api/Spot)
