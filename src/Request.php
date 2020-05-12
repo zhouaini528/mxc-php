@@ -36,7 +36,7 @@ class Request
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->host=$data['host'] ?? 'https://www.mxc.com/';
+        $this->host=$data['host'] ?? 'https://www.mxc.co/';
         
         $this->options=$data['options'] ?? [];
     }
@@ -70,13 +70,15 @@ class Request
                 'api_key'=>$this->key,
                 'req_time'=>$this->nonce
             ];
-            $params=array_merge($params,$this->data);
+            
+            if($this->type != 'POST') $params=array_merge($params,$this->data);
             
             $params=$this->sort($params);
             $params=implode('&', $params);
-            $params.='&api_secret='.$this->secret;
             
-            $this->signature = md5($params);
+            $params=$this->type."\n".$this->path."\n".$params;
+            
+            $this->signature =hash_hmac('sha256',$params,$this->secret);
         }
     }
     
@@ -140,12 +142,14 @@ class Request
                 'sign'=>$this->signature,
             ];
             
-            if($this->type=='GET') $url.='?'.http_build_query(array_merge($params,$this->data));
-            else $this->options['form_params']=array_merge($params,$this->data);
-        }else{
-            $url.='?'.http_build_query($this->data);
+            if($this->type=='POST') {
+                $url.='?'.http_build_query($params);
+                $this->options['body']=json_encode($this->data);
+            }else{
+                $url.='?'.http_build_query(array_merge($params,$this->data));
+            }
         }
-
+        
         $response = $client->request($this->type, $url, $this->options);
         
         return $response->getBody()->getContents();

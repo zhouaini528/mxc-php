@@ -16,7 +16,6 @@ require __DIR__ .'../../../vendor/autoload.php';
 include 'key_secret.php';
 
 $mxc=new MxcSpot($key,$secret);
-//$mxc=new MxcSpot('mmmyyyaaapppiiikkkeeeyyy','ssseeecccrrreeettt');
 
 //You can set special needs
 $mxc->setOptions([
@@ -35,7 +34,6 @@ $mxc->setOptions([
     //'verify'=>false,
 ]);
 
-//Place an Order
 try {
     $result=$mxc->account()->getInfo();
     print_r($result);

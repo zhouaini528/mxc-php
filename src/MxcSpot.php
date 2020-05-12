@@ -7,8 +7,9 @@ namespace Lin\Mxc;
 
 
 use Lin\Mxc\Api\Spot\Accounts;
-use Lin\Mxc\Api\Spot\Data;
+use Lin\Mxc\Api\Spot\Market;
 use Lin\Mxc\Api\Spot\Orders;
+use Lin\Mxc\Api\Spot\Common;
 
 class MxcSpot
 {
@@ -19,7 +20,7 @@ class MxcSpot
     
     protected $options=[];
     
-    function __construct(string $key='',string $secret='',string $host='https://www.mxc.com'){
+    function __construct(string $key='',string $secret='',string $host='https://www.mxc.co'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
@@ -55,8 +56,15 @@ class MxcSpot
     /**
      *
      * */
-    public function data(){
-        return  new Data($this->init());
+    public function common(){
+        return  new Common($this->init());
+    }
+    
+    /**
+     *
+     * */
+    public function market(){
+        return  new Market($this->init());
     }
     
     /**

@@ -15,10 +15,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$Mxc=new MxcSpot();
+$mxc=new MxcSpot($key,$secret);
 
 //You can set special needs
-$Mxc->setOptions([
+$mxc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
@@ -35,23 +35,19 @@ $Mxc->setOptions([
 ]);
 
 try {
-    $result=$Mxc->data()->getMarkets();
-    print_r($result);
-}catch (\Exception $e){
-    print_r(json_decode($e->getMessage(),true));
-}
-
-try {
-    $result=$Mxc->data()->getMarketsInfo();
+    $result=$mxc->market()->getDeals([
+        'symbol'=>'btc_usdt',
+        'limit'=>2,
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 } 
 
 try {
-    $result=$Mxc->data()->getDepth([
-        'depth'=>10,
-        'market'=>'btc_usdt'
+    $result=$mxc->market()->getDepth([
+        'depth'=>2,
+        'symbol'=>'btc_usdt'
     ]);
     print_r($result);
 }catch (\Exception $e){
@@ -59,11 +55,32 @@ try {
 }
 
 try {
-    $result=$Mxc->data()->getTicker();
+    $result=$mxc->market()->getTicker([
+        'symbol'=>'btc_usdt',
+        'limit'=>2
+    ]);
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 } 
+
+try {
+    $result=$mxc->market()->getKline([
+        'symbol'=>'btc_usdt',
+        'interval'=>'1h',
+        //'limit'=>10
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+} 
+
+try {
+    $result=$mxc->market()->getSymbols();
+    print_r($result['data'][0]);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
 
 
 

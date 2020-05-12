@@ -7,23 +7,24 @@
  * Fill in your key and secret and pass can be directly run
  * 
  * Most of them are unfinished and need your help
- * https://github.com/zhouaini528/okex-php.git
+ * https://github.com/zhouaini528/Mxc-php.git
  * */
-use Lin\Okex\OkexSpot;
+use Lin\Mxc\MxcSpot;
 
 require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$okex=new OkexSpot($key,$secret,$passphrase);
+//$mxc=new MxcSpot();
+$mxc=new MxcSpot($key,$secret);
 
 //You can set special needs
-$okex->setOptions([
+$mxc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
     //If you are developing locally and need an agent, you can set this
-    'proxy'=>true,
+    //'proxy'=>true,
     //More flexible Settings
     /* 'proxy'=>[
      'http'  => 'http://127.0.0.1:12333',
@@ -34,31 +35,28 @@ $okex->setOptions([
     //'verify'=>false,
 ]);
 
-//This endpoint supports getting the list of assets(only show pairs with balance larger than 0), the balances, amount available/on hold in spot accounts.
 try {
-    $result=$okex->account()->getAll();
+    $result=$mxc->common()->getPing();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//This endpoint supports getting the balance, amount available/on hold of a token in spot account.
 try {
-    $result=$okex->account()->get([
-        'currency'=>'BTC'
-    ]);
+    $result=$mxc->common()->getRateLimit();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
-//All paginated requests return the latest information (newest) as the first page sorted by newest (in chronological time) first.
+
 try {
-    $result=$okex->account()->getLedger([
-        'currency'=>'btc',
-        'limit'=>2,
-    ]);
+    $result=$mxc->common()->getTimestamp();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
+
+
+
+
