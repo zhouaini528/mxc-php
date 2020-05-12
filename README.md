@@ -8,7 +8,7 @@ All interface methods are initialized the same as those provided by okex. See de
 
 Most of the interface is now complete, and the user can continue to extend it based on my design, working with me to improve it.
 
-[中文文档](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
+[English Document](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
 
 ### Other exchanges API
 
@@ -26,12 +26,12 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Mxc](https://github.com/zhouaini528/Mxc-php)
 
-#### 安装方式
+#### Installation
 ```
 composer require linwj/mxc-php
 ```
 
-支持更多的请求设置 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/proxy.php#L21)
+Support for more request Settings [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/proxy.php#L21)
 ```php
 $okex=new OkexSpot();
 //You can set special needs
@@ -53,7 +53,7 @@ $okex->setOptions([
 ]);
 ```
 
-### Mxc 现货交易 API
+### Mxc Spot API
 
 Order Book [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/Mxc/market.php)
 

@@ -6,7 +6,7 @@ Mxc 文档地址 [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.githu
 
 大部分的接口已经完成，使用者可以根据我的设计方案继续扩展，欢迎与我一起迭代它。
 
-[中文文档](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
+[English Document](https://github.com/zhouaini528/mxc-php/blob/master/README_CN.md)
 
 ### 其他交易所API
 
@@ -29,7 +29,7 @@ Mxc 文档地址 [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.githu
 composer require linwj/mxc-php
 ```
 
-支持更多的请求设置 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/proxy.php#L21)
+支持更多的请求设置
 ```php
 $okex=new OkexSpot();
 //You can set special needs
