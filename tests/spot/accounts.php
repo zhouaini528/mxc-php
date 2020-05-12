@@ -16,13 +16,6 @@ require __DIR__ .'../../../vendor/autoload.php';
 include 'key_secret.php';
 
 $mxc=new MxcSpot($key,$secret);
-//$mxc=new MxcSpot('mmmyyyaaapppiiikkkeeeyyy','ssseeecccrrreeettt');
-/*
-GET
-/api/v2/order/open_orders
-api_key=mxcV9JCC8iu8zpaiWC&limit=1000&req_time=1572936251&startTime=1572076703000&symbol=MX_ETH&tradeType=BID
-*/
-//GET https://www.mxc.co/api/v2/order/open_orders?api_key=mxcV9JCC8iu8zpaiWC&limit=1000&req_time=1572936251&startTime=1572076703000&symbol=MX_ETH&tradeType=BID&sign=0d1a5ee9e76a4907abedc4fe383ddfd0
 
 //You can set special needs
 $mxc->setOptions([
@@ -41,7 +34,6 @@ $mxc->setOptions([
     //'verify'=>false,
 ]);
 
-//Place an Order
 try {
     $result=$mxc->account()->getInfo();
     print_r($result);
