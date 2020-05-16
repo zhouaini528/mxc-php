@@ -24,6 +24,10 @@ Mxc 文档地址 [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.githu
 
 [Mxc](https://github.com/zhouaini528/mxc-php) 暂时未加入 Exchanges SDK
 
+[Coinbase](https://github.com/zhouaini528/coinbase-php) 暂时未加入 Exchanges SDK
+
+[ZB](https://github.com/zhouaini528/zb-php) 暂时未加入 Exchanges SDK
+
 #### 安装方式
 ```
 composer require linwj/mxc-php
