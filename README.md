@@ -30,6 +30,8 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [ZB](https://github.com/zhouaini528/zb-php) Temporarily not connected to Exchanges SDK
 
+[Bitfinex](https://github.com/zhouaini528/bitfinex-php) Temporarily not connected to Exchanges SDK
+
 #### Installation
 ```
 composer require linwj/mxc-php
