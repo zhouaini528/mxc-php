@@ -32,6 +32,8 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Bitfinex](https://github.com/zhouaini528/bitfinex-php)
 
+[Bittrex](https://github.com/zhouaini528/bittrex-php)
+
 #### Installation
 ```
 composer require linwj/mxc-php
