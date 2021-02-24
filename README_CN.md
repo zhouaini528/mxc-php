@@ -40,7 +40,7 @@ Mxc 文档地址 [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.githu
 
 #### 安装方式
 ```
-composer require linwj/mxc-php
+composer require linwj/mxc
 ```
 
 支持更多的请求设置

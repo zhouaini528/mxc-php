@@ -42,7 +42,7 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 #### Installation
 ```
-composer require linwj/mxc-php
+composer require linwj/mxc
 ```
 
 Support for more request Settings
