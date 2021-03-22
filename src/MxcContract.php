@@ -6,12 +6,7 @@
 namespace Lin\Mxc;
 
 
-use Lin\Mxc\Api\Spot\Accounts;
-use Lin\Mxc\Api\Spot\Market;
-use Lin\Mxc\Api\Spot\Orders;
-use Lin\Mxc\Api\Spot\Common;
-
-class MxcSpot
+class MxcContract
 {
     protected $key;
     protected $secret;
@@ -20,7 +15,7 @@ class MxcSpot
 
     protected $options=[];
 
-    function __construct(string $key='',string $secret='',string $host='https://www.mxc.com'){
+    function __construct(string $key='',string $secret='',string $host='https://contract.mxc.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;
@@ -37,7 +32,7 @@ class MxcSpot
             'host'=>$this->host,
             'options'=>$this->options,
 
-            'platform'=>'spot',
+            'platform'=>'contract',
             'version'=>'v1',
         ];
     }
@@ -49,31 +44,4 @@ class MxcSpot
         $this->options=$options;
     }
 
-    /**
-     *
-     * */
-    public function account(){
-        return  new Accounts($this->init());
-    }
-
-    /**
-     *
-     * */
-    public function common(){
-        return  new Common($this->init());
-    }
-
-    /**
-     *
-     * */
-    public function market(){
-        return  new Market($this->init());
-    }
-
-    /**
-     *
-     * */
-    public function order(){
-        return  new Orders($this->init());
-    }
 }

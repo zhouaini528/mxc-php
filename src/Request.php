@@ -32,13 +32,20 @@ class Request
 
     protected $options=[];
 
+    protected $platform='';
+
+    protected $version='';
+
     public function __construct(array $data)
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->host=$data['host'] ?? 'https://www.mxc.co/';
+        $this->host=$data['host'] ?? 'https://www.mxc.com/';
 
         $this->options=$data['options'] ?? [];
+
+        $this->platform=$data['platform'] ?? [];
+        $this->version=$data['version'] ?? [];
     }
 
     /**
@@ -65,20 +72,30 @@ class Request
      * 签名
      * */
     protected function signature(){
-        if(!empty($this->key) && !empty($this->secret)){
-            $params=[
-                'api_key'=>$this->key,
-                'req_time'=>$this->nonce
-            ];
 
-            if($this->type != 'POST') $params=array_merge($params,$this->data);
+        switch ($this->platform){
+            case 'spot':{
+                if(!empty($this->key) && !empty($this->secret)){
+                    $params=[
+                        'api_key'=>$this->key,
+                        'req_time'=>$this->nonce
+                    ];
 
-            $params=$this->sort($params);
-            $params=implode('&', $params);
+                    if($this->type != 'POST') $params=array_merge($params,$this->data);
 
-            $params=$this->type."\n".$this->path."\n".$params;
+                    $params=$this->sort($params);
+                    $params=implode('&', $params);
 
-            $this->signature =hash_hmac('sha256',$params,$this->secret);
+                    $params=$this->type."\n".$this->path."\n".$params;
+
+                    $this->signature =hash_hmac('sha256',$params,$this->secret);
+                }
+                break;
+            }
+            case 'contract':{
+
+                break;
+            }
         }
     }
 
@@ -102,9 +119,21 @@ class Request
      * 默认头部信息
      * */
     protected function headers(){
-        $this->headers=[
-            'Content-Type' => 'application/json',
-        ];
+        switch ($this->platform){
+            case 'spot':{
+                $this->headers=[
+                    'Content-Type' => 'application/json',
+                ];
+                break;
+            }
+            case 'contract':{
+                $this->headers=[
+                    'Content-Type' => 'application/json',
+                ];
+                break;
+            }
+        }
+
     }
 
     /**
@@ -133,20 +162,30 @@ class Request
 
         $url=$this->host.$this->path;
 
-        if(!empty($this->key) && !empty($this->secret)){
-            $params=[
-                'api_key'=>$this->key,
-                'req_time'=>$this->nonce,
-                'sign'=>$this->signature,
-            ];
+        switch ($this->platform){
+            case 'spot':{
+                if(!empty($this->key) && !empty($this->secret)){
+                    $params=[
+                        'api_key'=>$this->key,
+                        'req_time'=>$this->nonce,
+                        'sign'=>$this->signature,
+                    ];
 
-            if($this->type=='POST') {
-                $url.='?'.http_build_query($params);
-                $this->options['body']=json_encode($this->data);
-            }else{
-                $url.='?'.http_build_query(array_merge($params,$this->data));
+                    if($this->type=='POST') {
+                        $url.='?'.http_build_query($params);
+                        $this->options['body']=json_encode($this->data);
+                    }else{
+                        $url.='?'.http_build_query(array_merge($params,$this->data));
+                    }
+                }
+                break;
+            }
+            case 'contract':{
+
+                break;
             }
         }
+
 
         $response = $client->request($this->type, $url, $this->options);
 
