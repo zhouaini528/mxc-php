@@ -1,7 +1,6 @@
 ### It is recommended that you read the official document first
 
-
-Mxc spot docs [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.github.io/APIDoc/)
+Mxc docs [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.github.io/APIDoc/)
 
 All interface methods are initialized the same as those provided by Mxc. See details [src/api](https://github.com/zhouaini528/mxc-php/tree/master/src/Api)
 
