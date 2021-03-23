@@ -16,8 +16,6 @@ class Request
 
     protected $host='';
 
-
-
     protected $nonce='';
 
     protected $signature='';
@@ -31,6 +29,8 @@ class Request
     protected $data=[];
 
     protected $options=[];
+
+    protected $authentication=true;
 
     protected $platform='';
 
@@ -49,7 +49,7 @@ class Request
     }
 
     /**
-     * 认证
+     *
      * */
     protected function auth(){
         $this->nonce();
@@ -62,14 +62,23 @@ class Request
     }
 
     /**
-     * 过期时间
+     *
      * */
     protected function nonce(){
-        $this->nonce=time();
+        switch ($this->platform){
+            case 'spot':{
+                $this->nonce=time();
+                break;
+            }
+            case 'contract':{
+                $this->nonce=time()*1000;
+                break;
+            }
+        }
     }
 
     /**
-     * 签名
+     *
      * */
     protected function signature(){
 
@@ -93,30 +102,25 @@ class Request
                 break;
             }
             case 'contract':{
+                if($this->authentication==false) return;
 
+                if($this->type=='GET'){
+                    $params= empty($this->data) ? '' : implode('&',$this->sort($this->data));
+                }else{
+                    $params= empty($this->data) ? '' : json_encode($this->data);
+                }
+
+                //accessKey+时间戳+获取到的参数字符串
+                $what = $this->key . $this->nonce . $params;
+                //echo $what.PHP_EOL;
+                $this->signature = hash_hmac("sha256", $what, $this->secret);
                 break;
             }
         }
     }
 
     /**
-     * 根据规则排序
-     * */
-    protected function sort($param)
-    {
-        $u = [];
-        $sort_rank = [];
-        foreach ($param as $k => $v) {
-            $u[] = $k . "=" . urlencode($v);
-            $sort_rank[] = ord($k);
-        }
-        asort($u);
-
-        return $u;
-    }
-
-    /**
-     * 默认头部信息
+     *
      * */
     protected function headers(){
         switch ($this->platform){
@@ -129,15 +133,17 @@ class Request
             case 'contract':{
                 $this->headers=[
                     'Content-Type' => 'application/json',
+                    'ApiKey' => $this->key,
+                    'Request-Time'=>$this->nonce,
+                    'Signature'=>$this->signature,
                 ];
                 break;
             }
         }
-
     }
 
     /**
-     * 请求设置
+     *
      * */
     protected function options(){
         if(isset($this->options['headers'])) $this->headers=array_merge($this->headers,$this->options['headers']);
@@ -155,7 +161,7 @@ class Request
     }
 
     /**
-     * 发送http
+     *
      * */
     protected function send(){
         $client = new \GuzzleHttp\Client();
@@ -181,11 +187,16 @@ class Request
                 break;
             }
             case 'contract':{
-
+                if($this->type=='GET') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+                else $this->options['body']=json_encode($this->data);
+                //else $this->options['form_params']=$this->data;
                 break;
             }
         }
 
+        //echo $url.PHP_EOL;
+        //print_r($this->options);
+        //die;
 
         $response = $client->request($this->type, $url, $this->options);
 
@@ -193,12 +204,11 @@ class Request
     }
 
     /*
-     * 执行流程
+     *
      * */
     protected function exec(){
         $this->auth();
 
-        //可以记录日志
         try {
             return json_decode($this->send(),true);
         }catch (RequestException $e){
@@ -218,8 +228,23 @@ class Request
 
             $temp['_httpcode']=$e->getCode();
 
-            //TODO  该流程可以记录各种日志
             throw new Exception(json_encode($temp));
         }
+    }
+
+    /**
+     *
+     * */
+    protected function sort($param)
+    {
+        $u = [];
+        $sort_rank = [];
+        foreach ($param as $k => $v) {
+            $u[] = $k . "=" . urlencode($v);
+            $sort_rank[] = ord($k);
+        }
+        asort($u);
+
+        return $u;
     }
 }

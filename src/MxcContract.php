@@ -6,6 +6,13 @@
 namespace Lin\Mxc;
 
 
+use Lin\Mxc\Api\Contract\Account;
+use Lin\Mxc\Api\Contract\Market;
+use Lin\Mxc\Api\Contract\Order;
+use Lin\Mxc\Api\Contract\PlanOrder;
+use Lin\Mxc\Api\Contract\Position;
+use Lin\Mxc\Api\Contract\StopOrder;
+
 class MxcContract
 {
     protected $key;
@@ -44,4 +51,45 @@ class MxcContract
         $this->options=$options;
     }
 
+    /**
+     *
+     * */
+    public function account(){
+        return  new Account($this->init());
+    }
+
+    /**
+     *
+     * */
+    public function market(){
+        return  new Market($this->init());
+    }
+
+    /**
+     *
+     * */
+    public function order(){
+        return  new Order($this->init());
+    }
+
+    /**
+     *
+     * */
+    public function planorder(){
+        return  new PlanOrder($this->init());
+    }
+
+    /**
+     *
+     * */
+    public function position(){
+        return  new Position($this->init());
+    }
+
+    /**
+     *
+     * */
+    public function stoporder(){
+        return  new StopOrder($this->init());
+    }
 }

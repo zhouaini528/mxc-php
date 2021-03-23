@@ -57,7 +57,10 @@ composer require linwj/mxc
 
 支持更多的请求设置
 ```php
+$mxc=new MxcSpot();
+//or
 $mxc=new MxcSpot($key,$secret);
+
 //You can set special needs
 $mxc->setOptions([
     //Set the request timeout to 60 seconds by default
@@ -193,3 +196,234 @@ try {
 [更多用例请查看](https://github.com/zhouaini528/mxc-php/tree/master/tests/spot)
 
 [更多API请查看](https://github.com/zhouaini528/mxc-php/tree/master/src/Api/Spot)
+
+
+### Mxc 期货交易 API
+
+行情数据 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/contract/market.php)
+
+```php
+$mxc=new MxcContract();
+
+try {
+    $result=$mxc->market()->getPing();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getDetail();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getSupportCurrencies();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getDepth([
+        'symbol'=>'BTC_USDT',
+        'limit'=>2
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getDepthCommits([
+        'symbol'=>'BTC_USDT',
+        'limit'=>2
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+
+try {
+    $result=$mxc->market()->getIndexPrice([
+        'symbol'=>'BTC_USDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getFairPrice([
+        'symbol'=>'BTC_USDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getFundingRate([
+        'symbol'=>'BTC_USDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->market()->getKline([
+        'symbol'=>'BTC_USDT',
+        'interval'=>'Min60',
+        'start'=>'1616168957',
+        'end'=>'1616468957',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+下单、撤单、查询订单 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/contract/order.php)
+
+```php
+$mxc=new MxcContract($key,$secret);
+
+//order
+try {
+    $result=$mxc->order()->postSubmit([
+        'symbol'=>'BTC_USDT',
+        'price'=>'5000',
+        'vol'=>'1',
+        'side'=>'1',
+        'type'=>'1',
+        'openType'=>'2',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->order()->postCancel([
+        'symbol'=>'BTC_USDT',
+        'orderId'=>'xxxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->order()->postCancelAll([
+        'symbol'=>'BTC_USDT',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//PlanOrder
+try {
+    $result=$mxc->planorder()->getOrders([
+        'page_num'=>1,
+        'page_size'=>10,
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->planorder()->postPlace([
+        'symbol'=>'BTC_USDT',
+        'price'=>'5000',
+        'vol'=>'1',
+        'side'=>'1',
+        'openType'=>'2',
+        'triggerPrice'=>'5500',
+        'triggerType'=>'2',
+        'executeCycle'=>'1',
+        'orderType'=>'1',
+        'trend'=>'1',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->planorder()->postCancel([
+        'symbol'=>'BTC_USDT',
+        'orderId'=>'xxxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+//StopOrder
+try {
+    $result=$mxc->stoporder()->getOrders([
+        'page_num'=>1,
+        'page_size'=>10,
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->stoporder()->postCancel([
+        'symbol'=>'BTC_USDT',
+        'orderId'=>'xxxxxxxxxxx',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->stoporder()->postChangePrice([
+        'orderId'=>'xxxxxxxx',
+        'stopLossPrice'=>'5000',
+        'takeProfitPrice'=>'0',
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+账户、仓位 [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/contract/postion.php)
+```php
+$mxc=new MxcContract($key,$secret);
+
+try {
+    $result=$mxc->position()->getHistoryPositions([
+        //'symbol'=>'BTC_USDT',
+        //'type'=>1,
+        'page_num'=>1,
+        'page_size'=>10,
+    ]);
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+
+try {
+    $result=$mxc->account()->getAssets();
+    print_r($result);
+}catch (\Exception $e){
+    print_r(json_decode($e->getMessage(),true));
+}
+```
+
+[更多用例请查看](https://github.com/zhouaini528/mxc-php/tree/master/tests/contract)
+
+[更多API请查看](https://github.com/zhouaini528/mxc-php/tree/master/src/Api/Contract)
+
+
