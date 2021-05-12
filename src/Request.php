@@ -65,81 +65,37 @@ class Request
      *
      * */
     protected function nonce(){
-        switch ($this->platform){
-            case 'spot':{
-                $this->nonce=time();
-                break;
-            }
-            case 'contract':{
-                $this->nonce=time()*1000;
-                break;
-            }
-        }
+        $this->nonce=time()*1000;
     }
 
     /**
      *
      * */
     protected function signature(){
+        if($this->authentication==false) return;
 
-        switch ($this->platform){
-            case 'spot':{
-                if(!empty($this->key) && !empty($this->secret)){
-                    $params=[
-                        'api_key'=>$this->key,
-                        'req_time'=>$this->nonce
-                    ];
-
-                    if($this->type != 'POST') $params=array_merge($params,$this->data);
-
-                    $params=$this->sort($params);
-                    $params=implode('&', $params);
-
-                    $params=$this->type."\n".$this->path."\n".$params;
-
-                    $this->signature =hash_hmac('sha256',$params,$this->secret);
-                }
-                break;
-            }
-            case 'contract':{
-                if($this->authentication==false) return;
-
-                if($this->type=='GET'){
-                    $params= empty($this->data) ? '' : implode('&',$this->sort($this->data));
-                }else{
-                    $params= empty($this->data) ? '' : json_encode($this->data);
-                }
-
-                //accessKey+时间戳+获取到的参数字符串
-                $what = $this->key . $this->nonce . $params;
-                //echo $what.PHP_EOL;
-                $this->signature = hash_hmac("sha256", $what, $this->secret);
-                break;
-            }
+        if($this->type=='GET'){
+            $params= empty($this->data) ? '' : implode('&',$this->sort($this->data));
+        }else{
+            $params= empty($this->data) ? '' : json_encode($this->data);
         }
+
+        //accessKey+时间戳+获取到的参数字符串
+        $what = $this->key . $this->nonce . $params;
+        //echo $what.PHP_EOL;
+        $this->signature = hash_hmac("sha256", $what, $this->secret);
     }
 
     /**
      *
      * */
     protected function headers(){
-        switch ($this->platform){
-            case 'spot':{
-                $this->headers=[
-                    'Content-Type' => 'application/json',
-                ];
-                break;
-            }
-            case 'contract':{
-                $this->headers=[
-                    'Content-Type' => 'application/json',
-                    'ApiKey' => $this->key,
-                    'Request-Time'=>$this->nonce,
-                    'Signature'=>$this->signature,
-                ];
-                break;
-            }
-        }
+        $this->headers=[
+            'Content-Type' => 'application/json',
+            'ApiKey' => $this->key,
+            'Request-Time'=>$this->nonce,
+            'Signature'=>$this->signature,
+        ];
     }
 
     /**
@@ -168,31 +124,8 @@ class Request
 
         $url=$this->host.$this->path;
 
-        switch ($this->platform){
-            case 'spot':{
-                if(!empty($this->key) && !empty($this->secret)){
-                    $params=[
-                        'api_key'=>$this->key,
-                        'req_time'=>$this->nonce,
-                        'sign'=>$this->signature,
-                    ];
-
-                    if($this->type=='POST') {
-                        $url.='?'.http_build_query($params);
-                        $this->options['body']=json_encode($this->data);
-                    }else{
-                        $url.='?'.http_build_query(array_merge($params,$this->data));
-                    }
-                }
-                break;
-            }
-            case 'contract':{
-                if($this->type=='GET') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
-                else $this->options['body']=json_encode($this->data);
-                //else $this->options['form_params']=$this->data;
-                break;
-            }
-        }
+        if($this->type=='GET') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+        else $this->options['body']=json_encode($this->data);
 
         //echo $url.PHP_EOL;
         //print_r($this->options);
