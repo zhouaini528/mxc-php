@@ -22,7 +22,7 @@ class MxcContract
 
     protected $options=[];
 
-    function __construct(string $key='',string $secret='',string $host='https://contract.mxc.com'){
+    function __construct(string $key='',string $secret='',string $host='https://contract.mexc.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;

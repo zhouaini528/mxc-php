@@ -1,9 +1,9 @@
 {
     "name": "linwj/mxc",
     "type": "library",
-    "description": "Mxc API Like the official document interface, Support for arbitrary extension.",
+    "description": "Mexc API Like the official document interface, Support for arbitrary extension.",
     "license": "MIT",
-    "keywords": ["bitmex", "binance", "okex", "huobi","kucoin","kumex","mxc"],
+    "keywords": ["bitmex", "binance", "okex", "huobi","kucoin","kumex","mexc","mxc"],
     "authors": [
         {
             "name": "linwenjun",

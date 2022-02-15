@@ -15,10 +15,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$mxc=new MxcContract($key,$secret);
+$mexc=new MxcContract($key,$secret);
 
 //You can set special needs
-$mxc->setOptions([
+$mexc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 
@@ -35,7 +35,7 @@ $mxc->setOptions([
 ]);
 
 try {
-    $result=$mxc->order()->postSubmit([
+    $result=$mexc->order()->postSubmit([
         'symbol'=>'BTC_USDT',
         'price'=>'5000',
         'vol'=>'1',
@@ -49,7 +49,7 @@ try {
 }
 
 try {
-    $result=$mxc->order()->postCancel([
+    $result=$mexc->order()->postCancel([
         'symbol'=>'BTC_USDT',
         'orderId'=>'xxxxxxxxxxx',
     ]);
@@ -59,7 +59,7 @@ try {
 }
 
 try {
-    $result=$mxc->order()->postCancelAll([
+    $result=$mexc->order()->postCancelAll([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);

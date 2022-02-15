@@ -1,6 +1,6 @@
 ### It is recommended that you read the official document first
 
-Mxc docs [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.github.io/APIDoc/)
+Mexc docs [https://mxcdevelop.github.io/APIDoc/](https://mxcdevelop.github.io/APIDoc/)
 
 All interface methods are initialized the same as those provided by Mxc. See details [src/api](https://github.com/zhouaini528/mxc-php/tree/master/src/Api)
 
@@ -23,7 +23,7 @@ Most of the interface is now complete, and the user can continue to extend it ba
 
 [Kucoin](https://github.com/zhouaini528/kucoin-php)
 
-[Mxc](https://github.com/zhouaini528/Mxc-php)
+[Mexc](https://github.com/zhouaini528/Mxc-php)
 
 [Coinbase](https://github.com/zhouaini528/coinbase-php)
 
@@ -56,12 +56,12 @@ composer require linwj/mxc
 
 Support for more request Settings
 ```php
-$mxc=new MxcSpot();
+$mexc=new MxcSpot();
 //or
-$mxc=new MxcSpot($key,$secret);
+$mexc=new MxcSpot($key,$secret);
 
 //You can set special needs
-$mxc->setOptions([
+$mexc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
@@ -84,9 +84,9 @@ $mxc->setOptions([
 Order Book [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/spot/market.php)
 
 ```php
-$mxc=new MxcSpot($key,$secret);
+$mexc=new MxcSpot($key,$secret);
 try {
-    $result=$mxc->market()->getDeals([
+    $result=$mexc->market()->getDeals([
         'symbol'=>'btc_usdt',
         'limit'=>2,
     ]);
@@ -96,7 +96,7 @@ try {
 } 
 
 try {
-    $result=$mxc->market()->getDepth([
+    $result=$mexc->market()->getDepth([
         'depth'=>2,
         'symbol'=>'btc_usdt'
     ]);
@@ -106,7 +106,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getTicker([
+    $result=$mexc->market()->getTicker([
         'symbol'=>'btc_usdt',
         'limit'=>2
     ]);
@@ -116,7 +116,7 @@ try {
 } 
 
 try {
-    $result=$mxc->market()->getKline([
+    $result=$mexc->market()->getKline([
         'symbol'=>'btc_usdt',
         'interval'=>'1h',
         //'limit'=>10
@@ -127,7 +127,7 @@ try {
 } 
 
 try {
-    $result=$mxc->market()->getSymbols();
+    $result=$mexc->market()->getSymbols();
     print_r($result['data'][0]);
 }catch (\Exception $e){
     print_r($e->getMessage());
@@ -139,7 +139,7 @@ Order related API [More](https://github.com/zhouaini528/mxc-php/blob/master/test
 ```php
 //Place an Order
 try {
-    $result=$mxc->order()->postPlace([
+    $result=$mexc->order()->postPlace([
         'symbol'=>'EOS_USDT',
         'price'=>'6',
         'quantity'=>1,
@@ -156,7 +156,7 @@ sleep(1);
 
 //Get order details by order ID.
 try {
-    $result=$mxc->order()->getQuery([
+    $result=$mexc->order()->getQuery([
         'symbol'=>'EOS_USDT',
         'order_ids'=>$result['data'],
         //'client_order_ids'=>'',
@@ -169,7 +169,7 @@ sleep(1);
 
 //Cancelling an unfilled order.
 try {
-    $result=$mxc->order()->deleteCancel([
+    $result=$mexc->order()->deleteCancel([
         'symbol'=>'EOS_USDT',
         'order_ids'=>$result['data'][0]['id'],
         //'client_order_ids'=>'',
@@ -184,7 +184,7 @@ Accounts related API [More](https://github.com/zhouaini528/mxc-php/blob/master/t
 
 ```php
 try {
-    $result=$mxc->account()->getInfo();
+    $result=$mexc->account()->getInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r($e->getMessage());
@@ -201,31 +201,31 @@ try {
 Market [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/contract/market.php)
 
 ```php
-$mxc=new MxcContract();
+$mexc=new MxcContract();
 
 try {
-    $result=$mxc->market()->getPing();
+    $result=$mexc->market()->getPing();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$mxc->market()->getDetail();
+    $result=$mexc->market()->getDetail();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$mxc->market()->getSupportCurrencies();
+    $result=$mexc->market()->getSupportCurrencies();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$mxc->market()->getDepth([
+    $result=$mexc->market()->getDepth([
         'symbol'=>'BTC_USDT',
         'limit'=>2
     ]);
@@ -235,7 +235,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getDepthCommits([
+    $result=$mexc->market()->getDepthCommits([
         'symbol'=>'BTC_USDT',
         'limit'=>2
     ]);
@@ -246,7 +246,7 @@ try {
 
 
 try {
-    $result=$mxc->market()->getIndexPrice([
+    $result=$mexc->market()->getIndexPrice([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -255,7 +255,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getFairPrice([
+    $result=$mexc->market()->getFairPrice([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -264,7 +264,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getFundingRate([
+    $result=$mexc->market()->getFundingRate([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -273,7 +273,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getKline([
+    $result=$mexc->market()->getKline([
         'symbol'=>'BTC_USDT',
         'interval'=>'Min60',
         'start'=>'1616168957',
@@ -288,11 +288,11 @@ try {
 Order [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/contract/order.php)
 
 ```php
-$mxc=new MxcContract($key,$secret);
+$mexc=new MxcContract($key,$secret);
 
 //order
 try {
-    $result=$mxc->order()->postSubmit([
+    $result=$mexc->order()->postSubmit([
         'symbol'=>'BTC_USDT',
         'price'=>'5000',
         'vol'=>'1',
@@ -306,7 +306,7 @@ try {
 }
 
 try {
-    $result=$mxc->order()->postCancel([
+    $result=$mexc->order()->postCancel([
         'symbol'=>'BTC_USDT',
         'orderId'=>'xxxxxxxxxxx',
     ]);
@@ -316,7 +316,7 @@ try {
 }
 
 try {
-    $result=$mxc->order()->postCancelAll([
+    $result=$mexc->order()->postCancelAll([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -326,7 +326,7 @@ try {
 
 //PlanOrder
 try {
-    $result=$mxc->planorder()->getOrders([
+    $result=$mexc->planorder()->getOrders([
         'page_num'=>1,
         'page_size'=>10,
     ]);
@@ -336,7 +336,7 @@ try {
 }
 
 try {
-    $result=$mxc->planorder()->postPlace([
+    $result=$mexc->planorder()->postPlace([
         'symbol'=>'BTC_USDT',
         'price'=>'5000',
         'vol'=>'1',
@@ -354,7 +354,7 @@ try {
 }
 
 try {
-    $result=$mxc->planorder()->postCancel([
+    $result=$mexc->planorder()->postCancel([
         'symbol'=>'BTC_USDT',
         'orderId'=>'xxxxxxxxxxx',
     ]);
@@ -365,7 +365,7 @@ try {
 
 //StopOrder
 try {
-    $result=$mxc->stoporder()->getOrders([
+    $result=$mexc->stoporder()->getOrders([
         'page_num'=>1,
         'page_size'=>10,
     ]);
@@ -375,7 +375,7 @@ try {
 }
 
 try {
-    $result=$mxc->stoporder()->postCancel([
+    $result=$mexc->stoporder()->postCancel([
         'symbol'=>'BTC_USDT',
         'orderId'=>'xxxxxxxxxxx',
     ]);
@@ -385,7 +385,7 @@ try {
 }
 
 try {
-    $result=$mxc->stoporder()->postChangePrice([
+    $result=$mexc->stoporder()->postChangePrice([
         'orderId'=>'xxxxxxxx',
         'stopLossPrice'=>'5000',
         'takeProfitPrice'=>'0',
@@ -398,10 +398,10 @@ try {
 
 Account and Position  [More](https://github.com/zhouaini528/mxc-php/blob/master/tests/contract/postion.php)
 ```php
-$mxc=new MxcContract($key,$secret);
+$mexc=new MxcContract($key,$secret);
 
 try {
-    $result=$mxc->position()->getHistoryPositions([
+    $result=$mexc->position()->getHistoryPositions([
         //'symbol'=>'BTC_USDT',
         //'type'=>1,
         'page_num'=>1,
@@ -413,7 +413,7 @@ try {
 }
 
 try {
-    $result=$mxc->account()->getAssets();
+    $result=$mexc->account()->getAssets();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));

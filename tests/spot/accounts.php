@@ -15,10 +15,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$mxc=new MxcSpot($key,$secret);
+$mexc=new MxcSpot($key,$secret);
 
 //You can set special needs
-$mxc->setOptions([
+$mexc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
@@ -35,7 +35,7 @@ $mxc->setOptions([
 ]);
 
 try {
-    $result=$mxc->account()->getInfo();
+    $result=$mexc->account()->getInfo();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));

@@ -20,7 +20,7 @@ class MxcSpot
 
     protected $options=[];
 
-    function __construct(string $key='',string $secret='',string $host='https://www.mxc.com'){
+    function __construct(string $key='',string $secret='',string $host='https://www.mexc.com'){
         $this->key=$key;
         $this->secret=$secret;
         $this->host=$host;

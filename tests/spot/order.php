@@ -15,10 +15,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$mxc=new MxcSpot($key,$secret);
+$mexc=new MxcSpot($key,$secret);
 
 //You can set special needs
-$mxc->setOptions([
+$mexc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
@@ -36,7 +36,7 @@ $mxc->setOptions([
 
 //Place an Order
 try {
-    $result=$mxc->order()->postPlace([
+    $result=$mexc->order()->postPlace([
         'symbol'=>'EOS_USDT',
         'price'=>'6',
         'quantity'=>1,
@@ -53,7 +53,7 @@ sleep(1);
 
 //Get order details by order ID.
 try {
-    $result=$mxc->order()->getQuery([
+    $result=$mexc->order()->getQuery([
         'symbol'=>'EOS_USDT',
         'order_ids'=>$result['data'],
         //'client_order_ids'=>'',
@@ -66,7 +66,7 @@ sleep(1);
 
 //Cancelling an unfilled order.
 try {
-    $result=$mxc->order()->deleteCancel([
+    $result=$mexc->order()->deleteCancel([
         'symbol'=>'EOS_USDT',
         'order_ids'=>$result['data'][0]['id'],
         //'client_order_ids'=>'',

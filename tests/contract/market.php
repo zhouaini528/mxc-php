@@ -15,10 +15,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$mxc=new MxcContract();
+$mexc=new MxcContract();
 
 //You can set special needs
-$mxc->setOptions([
+$mexc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
 
@@ -35,28 +35,28 @@ $mxc->setOptions([
 ]);
 
 try {
-    $result=$mxc->market()->getPing();
+    $result=$mexc->market()->getPing();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$mxc->market()->getDetail();
+    $result=$mexc->market()->getDetail();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$mxc->market()->getSupportCurrencies();
+    $result=$mexc->market()->getSupportCurrencies();
     print_r($result);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
 }
 
 try {
-    $result=$mxc->market()->getDepth([
+    $result=$mexc->market()->getDepth([
         'symbol'=>'BTC_USDT',
         'limit'=>2
     ]);
@@ -66,7 +66,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getDepthCommits([
+    $result=$mexc->market()->getDepthCommits([
         'symbol'=>'BTC_USDT',
         'limit'=>2
     ]);
@@ -77,7 +77,7 @@ try {
 
 
 try {
-    $result=$mxc->market()->getIndexPrice([
+    $result=$mexc->market()->getIndexPrice([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -86,7 +86,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getFairPrice([
+    $result=$mexc->market()->getFairPrice([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -95,7 +95,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getFundingRate([
+    $result=$mexc->market()->getFundingRate([
         'symbol'=>'BTC_USDT',
     ]);
     print_r($result);
@@ -104,7 +104,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getKline([
+    $result=$mexc->market()->getKline([
         'symbol'=>'BTC_USDT',
         'interval'=>'Min60',
         'start'=>'1616168957',

@@ -15,10 +15,10 @@ require __DIR__ .'../../../vendor/autoload.php';
 
 include 'key_secret.php';
 
-$mxc=new MxcSpot($key,$secret);
+$mexc=new MxcSpot($key,$secret);
 
 //You can set special needs
-$mxc->setOptions([
+$mexc->setOptions([
     //Set the request timeout to 60 seconds by default
     'timeout'=>10,
     
@@ -35,7 +35,7 @@ $mxc->setOptions([
 ]);
 
 try {
-    $result=$mxc->market()->getDeals([
+    $result=$mexc->market()->getDeals([
         'symbol'=>'btc_usdt',
         'limit'=>2,
     ]);
@@ -45,7 +45,7 @@ try {
 } 
 
 try {
-    $result=$mxc->market()->getDepth([
+    $result=$mexc->market()->getDepth([
         'depth'=>2,
         'symbol'=>'btc_usdt'
     ]);
@@ -55,7 +55,7 @@ try {
 }
 
 try {
-    $result=$mxc->market()->getTicker([
+    $result=$mexc->market()->getTicker([
         'symbol'=>'btc_usdt',
         'limit'=>2
     ]);
@@ -65,7 +65,7 @@ try {
 } 
 
 try {
-    $result=$mxc->market()->getKline([
+    $result=$mexc->market()->getKline([
         'symbol'=>'btc_usdt',
         'interval'=>'1h',
         //'limit'=>10
@@ -76,7 +76,7 @@ try {
 } 
 
 try {
-    $result=$mxc->market()->getSymbols();
+    $result=$mexc->market()->getSymbols();
     print_r($result['data'][0]);
 }catch (\Exception $e){
     print_r(json_decode($e->getMessage(),true));
