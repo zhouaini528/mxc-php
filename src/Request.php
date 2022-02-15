@@ -40,7 +40,7 @@ class Request
     {
         $this->key=$data['key'] ?? '';
         $this->secret=$data['secret'] ?? '';
-        $this->host=$data['host'] ?? 'https://www.mxc.com/';
+        $this->host=$data['host'] ?? 'https://www.mexc.com/';
 
         $this->options=$data['options'] ?? [];
 
@@ -74,7 +74,7 @@ class Request
     protected function signature(){
         if($this->authentication==false) return;
 
-        if($this->type=='GET'){
+        if(in_array($this->type,['GET','DELETE'])) {
             $params= empty($this->data) ? '' : implode('&',$this->sort($this->data));
         }else{
             $params= empty($this->data) ? '' : json_encode($this->data);
@@ -106,14 +106,6 @@ class Request
 
         $this->options['headers']=$this->headers;
         $this->options['timeout'] = $this->options['timeout'] ?? 60;
-
-        if(isset($this->options['proxy']) && $this->options['proxy']===true) {
-            $this->options['proxy']=[
-                'http'  => 'http://127.0.0.1:12333',
-                'https' => 'http://127.0.0.1:12333',
-                'no'    =>  ['.cn']
-            ];
-        }
     }
 
     /**
@@ -124,12 +116,12 @@ class Request
 
         $url=$this->host.$this->path;
 
-        if($this->type=='GET') $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+        if(in_array($this->type,['GET','DELETE'])) $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
         else $this->options['body']=json_encode($this->data);
 
-        //echo $url.PHP_EOL;
-        //print_r($this->options);
-        //die;
+//        echo $url.PHP_EOL;
+//        print_r($this->options);
+//        die;
 
         $response = $client->request($this->type, $url, $this->options);
 
