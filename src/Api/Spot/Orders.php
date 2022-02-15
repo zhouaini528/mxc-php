@@ -88,4 +88,14 @@ class Orders extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /**
+     *DELETE /open/api/v2/order/cancel_by_symbol
+     * */
+    public function deleteCancelBySymbol(array $data=[]){
+        $this->type='DELETE';
+        $this->path='/open/api/v2/order/cancel_by_symbol';
+        $this->data=$data;
+        return $this->exec();
+    }
 }
