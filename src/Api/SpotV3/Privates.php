@@ -9,6 +9,8 @@ use Lin\Mxc\Request;
 
 class Privates extends Request
 {
+    protected $authentication=true;
+
     /*
      *POST /api/v3/order/test
      * */

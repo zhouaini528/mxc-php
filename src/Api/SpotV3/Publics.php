@@ -9,6 +9,8 @@ use Lin\Mxc\Request;
 
 class Publics extends Request
 {
+    protected $authentication=false;
+
     /*
      *GET /api/v3/ping
      * */

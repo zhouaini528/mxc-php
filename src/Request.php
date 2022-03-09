@@ -74,28 +74,49 @@ class Request
     protected function signature(){
         if($this->authentication==false) return;
 
-        if(in_array($this->type,['GET','DELETE'])) {
-            $params= empty($this->data) ? '' : implode('&',$this->sort($this->data));
-        }else{
-            $params= empty($this->data) ? '' : json_encode($this->data);
+        switch ($this->version){
+            case 'v3':{
+                $this->data['timestamp']=$this->nonce;
+                $this->signature = hash_hmac("sha256", http_build_query($this->data), $this->secret);
+                break;
+            }
+            default:{
+                if(in_array($this->type,['GET','DELETE'])) {
+                    $params= empty($this->data) ? '' : implode('&',$this->sort($this->data));
+                }else{
+                    $params= empty($this->data) ? '' : json_encode($this->data);
+                }
+                //accessKey+时间戳+获取到的参数字符串
+                $what = $this->key . $this->nonce . $params;
+                //echo $what.PHP_EOL;
+                $this->signature = hash_hmac("sha256", $what, $this->secret);
+            }
         }
-
-        //accessKey+时间戳+获取到的参数字符串
-        $what = $this->key . $this->nonce . $params;
-        //echo $what.PHP_EOL;
-        $this->signature = hash_hmac("sha256", $what, $this->secret);
     }
 
     /**
      *
      * */
     protected function headers(){
-        $this->headers=[
-            'Content-Type' => 'application/json',
-            'ApiKey' => $this->key,
-            'Request-Time'=>$this->nonce,
-            'Signature'=>$this->signature,
-        ];
+        switch ($this->version) {
+            case 'v3':
+            {
+                $this->headers=[
+                    'Content-Type' => 'application/json',
+                    'X-MEXC-APIKEY' => $this->key,
+                ];
+                break;
+            }
+            default:
+            {
+                $this->headers=[
+                    'Content-Type' => 'application/json',
+                    'ApiKey' => $this->key,
+                    'Request-Time'=>$this->nonce,
+                    'Signature'=>$this->signature,
+                ];
+            }
+        }
     }
 
     /**
@@ -116,8 +137,24 @@ class Request
 
         $url=$this->host.$this->path;
 
-        if(in_array($this->type,['GET','DELETE'])) $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
-        else $this->options['body']=json_encode($this->data);
+        switch ($this->version) {
+            case 'v3':{
+                if($this->authentication==false) break;
+                $this->data['timestamp']=$this->nonce;
+                $this->data['signature']=$this->signature;
+
+                if(in_array($this->type,['GET','DELETE'])) $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+                else $this->options['form_params']=$this->data;
+
+                break;
+            }
+            default:{
+                if(in_array($this->type,['GET','DELETE'])) $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
+                else $this->options['body']=json_encode($this->data);
+            }
+        }
+
+
 
 //        echo $url.PHP_EOL;
 //        print_r($this->options);
