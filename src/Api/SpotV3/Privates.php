@@ -100,4 +100,14 @@ class Privates extends Request
         $this->data=$data;
         return $this->exec();
     }
+
+    /*
+     *POST /api/v3/capital/withdraw/apply
+     * */
+    public function postCapitalWithdrawApply(array $data=[]){
+        $this->type='POST';
+        $this->path='/api/v3/capital/withdraw/apply';
+        $this->data=$data;
+        return $this->exec();
+    }
 }

@@ -139,9 +139,10 @@ class Request
 
         switch ($this->version) {
             case 'v3':{
-                if($this->authentication==false) break;
-                $this->data['timestamp']=$this->nonce;
-                $this->data['signature']=$this->signature;
+                if($this->authentication==true) {
+                    $this->data['timestamp']=$this->nonce;
+                    $this->data['signature']=$this->signature;
+                }
 
                 if(in_array($this->type,['GET','DELETE'])) $url.= empty($this->data) ? '' : '?'.http_build_query($this->data);
                 else $this->options['form_params']=$this->data;
@@ -154,10 +155,9 @@ class Request
             }
         }
 
-
-
-//        echo $url.PHP_EOL;
-//        print_r($this->options);
+        /*print_r($this->data);
+        echo $url.PHP_EOL;
+        print_r($this->options);*/
 //        die;
 
         $response = $client->request($this->type, $url, $this->options);
